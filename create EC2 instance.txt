@@ -1,0 +1,76 @@
+Objectives
+check_circle
+Create EC2 key pair.
+keyboard_arrow_up
+Open the Amazon EC2 console at https://console.aws.amazon.com/ec2/.
+
+In the navigation pane, under NETWORK & SECURITY, choose Key Pairs. Note: The navigation pane is on the left side of the Amazon EC2 console. If you do not see the pane, it might be minimized; choose the arrow to expand the pane.
+
+Choose Create Key Pair.
+
+Enter a name for the new key pair in the Key pair name field of the Create Key Pair dialog box, and then choose Create.
+
+The private key file is automatically downloaded by your browser. The base file name is the name you specified as the name of your key pair, and the file name extension is .pem. Save the private key file in a safe place. Important: This is the only chance for you to save the private key file. You'll need to provide the name of your key pair when you launch an instance and the corresponding private key each time you connect to the instance.
+
+If you will use an SSH client on a Mac or Linux computer to connect to your Linux instance, use the following command to set the permissions of your private key file so that only you can read it.
+
+chmod 400 my-key-pair.pem
+If you do not set these permissions, you cannot connect to your instance using this key pair.
+
+check_circle
+Create Lambda function.
+keyboard_arrow_up
+Navigate to AWS Lambda.
+Create function.
+Author from scratch.
+Name: CreateEC2Instance
+Runtime: Python 3.7
+Role: Create a custom role
+Role name: Leave as-is
+Click View policy document.
+Click Edit.
+Paste in the policy from this file on GitHub.
+Click Allow.
+Paste Python source code from this file on GitHub.
+Set environment variables for AMI, INSTANCE_TYPE, KEY_NAME, SUBNET_ID
+AMI can be found under EC2 if you try to launch a new instance. Select Amazon Linux 2.
+INSTANCE_TYPE is t2.micro
+KEY_NAME is the name of the EC2 key pair you created earlier.
+SUBNET_ID is the ID of one of the public subnets in your VPC.
+Save the Lambda function.
+check_circle
+Test Lambda function.
+keyboard_arrow_up
+Click Test.
+Define an empty test event. Its contents can simply be {}.
+Give it any name you like.
+Click Create.
+Click Test.
+Observe that an EC2 instance is initializing.
+check_circle
+Connect to the EC2 instance via SSH.
+keyboard_arrow_up
+From the command line, using the .pem file you downloaded earlier, connect via the public IP of the EC2 instance.
+
+For example:
+
+ssh -i mykeypair.pem ec2-user@<IP ADDRESS>
+
+Remember to replace <IP ADDRESS> with the public IP of the EC2 instance you c
+
+---------------------------
+Additional Information and Resources
+Make sure you are in us-east-1.
+
+Begin by creating an EC2 key pair and saving it locally.
+
+Create the Lambda function, using this source code from GitHub.
+
+Apply this execution policy to the Lambda function.
+
+Set the appropriate values for these environment variables in the Lambda function: AMI, INSTANCE_TYPE, KEY_NAME, SUBNET_ID
+
+Test the Lambda function, noting its Instance ID.
+
+Connect to the new EC2 instance using SSH and the key pair you generated earlier.
+
